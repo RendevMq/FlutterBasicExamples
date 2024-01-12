@@ -1,0 +1,159 @@
+==================================================================
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Map<String, dynamic>> sports = [
+    {"name": "Gimnasio"},
+    {"name": "Crossfit"},
+    {"name": "Correr"},
+    {"name": "Baloncesto"},
+    {"name": "Natación"},
+    {"name": "Golf"},
+    {"name": "Tenis"},
+    {"name": "Voley"},
+  ];
+
+  List<Map<String, dynamic>> listFavoriteSports = [];
+
+  Widget sportsMapeo(Map<String, dynamic> sport) {
+    
+    bool isConTop = true;
+    print("hola");
+    return GestureDetector(
+      onTap: () {
+
+        isConTop = !isConTop;
+        setState(() {});
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 1),
+        decoration: BoxDecoration(
+            border: Border.all(width: 1, color: Color(0xffEEA338)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: isConTop ? Colors.white : Colors.orange.shade300),
+        child: Text(
+          sport["name"],
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Favorite Sports",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: Color(0xffEEA338),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Cúales son tus deportes favoritos?",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Center(
+                child: Wrap(
+                  runSpacing: 8, //espaciado vertical, entre elementos
+                  alignment:
+                      WrapAlignment.center, // alineacion de los elementos
+                  children: sports.map((sport) => sportsMapeo(sport)).toList(),
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Divider(
+                height: 15,
+                color: Colors.black,
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                "Mis deportes favoritos son:",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(15)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+como puedo arreglar el problema?? lo malo es que siempre vuelve a ejecutar la primera linea : bool isConTop = true;
+
+no lo defino afuera porque se supone que yo quiero que cada uno de los container que se mapean tenga su variable isConTop.. para que al presionarlo se pinte .. de esa misma forma era como lo hacia en Reactjsj.. pero no se porque aca no funciona
+========================================================================
+
+El problema radica en que estás declarando isConTop dentro de la función sportsMapeo, por lo que cada vez que se ejecuta esa función, se vuelve a declarar la variable y se establece en true. Esto significa que cada contenedor tendrá su propia instancia de isConTop y no mantendrá su estado entre las reconstrucciones del widget.
+
+Para resolver esto, puedes almacenar el estado de cada deporte en el List<Map<String, dynamic>> sports directamente. Puedes modificar la estructura de cada deporte para incluir el estado. Aquí hay una manera de hacerlo:
+......... Codigo del main
+  List<Map<String, dynamic>> sports = [
+    {"name": "Gimnasio", "isfavourite": false},
+    {"name": "Crossfit", "isfavourite": false},
+    {"name": "Correr", "isfavourite": false},
+    {"name": "Baloncesto", "isfavourite": false},
+    {"name": "Natación", "isfavourite": false},
+    {"name": "Golf", "isfavourite": false},
+    {"name": "Tenis", "isfavourite": false},
+    {"name": "Voley", "isfavourite": false},
+  ];
+............
+
+==================================================================
+y porque de la forma que te decia si funcionaba con Reactjs?? 
+==================================================================
+ahi lo que definia era un estado con iscontop y cada uno de lo que mapeaba tenia su variable iscontop con eso
+
+ChatGPT
+La diferencia entre Flutter y ReactJS radica en cómo manejan el estado y la construcción de widgets. En ReactJS, cada componente puede tener su propio estado local y, al actualizar ese estado, se vuelve a renderizar el componente.
+
+En Flutter, el manejo del estado es diferente. Cuando utilizas setState, estás indicando a Flutter que vuelva a construir el widget, y eso afecta a todos los aspectos del widget, incluyendo las variables locales. Flutter no maneja el estado interno de la misma manera que ReactJS.
+
+En tu caso específico, si bien podrías lograr un comportamiento similar declarando isConTop fuera de la función y utilizando un estado global, no es la forma más típica de manejar el estado en Flutter. En lugar de eso, Flutter favorece la encapsulación del estado en widgets y el uso de setState para actualizar la interfaz de usuario.
+
+La solución que te proporcioné, utilizando una propiedad en el propio mapa de deportes para almacenar el estado, sigue la convención más común en Flutter para manejar el estado de forma local y específica del widget. Cada deporte tiene su propia propiedad isConTop, y al actualizarla y llamar a setState, solo ese widget específico se vuelve a construir con su nuevo estado.
+
+Recuerda que en Flutter, la filosofía es "everything is a widget" (todo es un widget), y cada widget debería manejar su propio estado de manera eficiente.
