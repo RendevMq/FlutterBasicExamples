@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 height: 180,
-                decoration: url.isNotEmpty
+                decoration:url.isNotEmpty
                     ? BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(url),
