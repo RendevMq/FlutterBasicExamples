@@ -1,8 +1,8 @@
 class Carrera {
   String nombre;
-  String duracion;
+  String? duracion;
   Carrera({
     required this.nombre,
-    required this.duracion,
+    this.duracion,
   });
 }
