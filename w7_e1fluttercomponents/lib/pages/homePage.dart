@@ -3,6 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:w7_e1fluttercomponents/pages/alert_page.dart';
 import 'package:w7_e1fluttercomponents/pages/avatar_page.dart';
 import 'package:w7_e1fluttercomponents/pages/card_page.dart';
+import 'package:w7_e1fluttercomponents/pages/grid_page.dart';
+import 'package:w7_e1fluttercomponents/pages/inputs_page.dart';
+import 'package:w7_e1fluttercomponents/pages/list_page.dart';
+import 'package:w7_e1fluttercomponents/pages/selection_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -56,6 +60,10 @@ class HomePage extends StatelessWidget {
               ItemComponentWidget(title: "Avatar", toPage: AvatarPage()),
               ItemComponentWidget(title: "Alerts", toPage: AlertPage()),
               ItemComponentWidget(title: "Cards", toPage: CardPage()),
+              ItemComponentWidget(title: "Inputs", toPage: InputPage()),
+              ItemComponentWidget(title: "Selection", toPage: SelectionPage()),
+              ItemComponentWidget(title: "List", toPage: ListPage()),
+              ItemComponentWidget(title: "GridView", toPage: GridPage()),
             ],
           ),
         ),
