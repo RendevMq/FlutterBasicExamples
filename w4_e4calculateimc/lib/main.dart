@@ -83,144 +83,146 @@ class _HomePageState extends State<HomePage> {
           ),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Altura",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Altura",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "${valorAltura.toStringAsFixed(1)} cm",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
+                      Text(
+                        "${valorAltura.toStringAsFixed(1)} cm",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
                       ),
-                    ),
-                    Slider(
-                      min: 0,
-                      max: 250,
-                      activeColor: Color(0xff740004),
-                      inactiveColor: Color(0xffC8888A),
-                      value: valorAltura,
-                      divisions: 2500,
-                      onChanged: (double val) {
-                        valorAltura = val;
-                        valorCalculado = "";
-                        msg1 = "";
-                        msg2 = "";
-                        url = "";
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Peso",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                      Slider(
+                        min: 0,
+                        max: 250,
+                        activeColor: Color(0xff740004),
+                        inactiveColor: Color(0xffC8888A),
+                        value: valorAltura,
+                        divisions: 2500,
+                        onChanged: (double val) {
+                          valorAltura = val;
+                          valorCalculado = "";
+                          msg1 = "";
+                          msg2 = "";
+                          url = "";
+                          setState(() {});
+                        },
                       ),
-                    ),
-                    Text(
-                      "${valorPeso.toStringAsFixed(1)} kg",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                    Slider(
-                      min: 0,
-                      max: 150,
-                      activeColor: Color(0xff0046A6),
-                      inactiveColor: Color(0xff87A5CF),
-                      value: valorPeso,
-                      divisions: 1500,
-                      onChanged: (double val) {
-                        valorPeso = val;
-                        valorCalculado = "";
-                        msg1 = "";
-                        msg2 = "";
-                        url = "";
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    valorCalculado = (valorPeso / pow(valorAltura / 100, 2))
-                        .toStringAsFixed(2);
-                    for (int i = 0; i < resultados.length; i++)
-                      if (double.parse(valorCalculado) > resultados[i].valMin &&
-                          double.parse(valorCalculado) <=
-                              resultados[i].valMax) {
-                        msg1 = resultados[i].Mensaje1;
-                        msg2 = resultados[i].Mensaje2;
-                        url =  resultados[i].imageUrl;
-                        break;
-                      }
-                    setState(() {});
-                  },
-                  child: Text(
-                    "Calculate",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
+                    ],
                   ),
-                  style: style,
                 ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Text(valorCalculado, style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold)),
-              Text(msg1, style: TextStyle(
-                fontSize: 25,
-                color: Color(0xffB21016))),
-              Text(
-                msg2,
-                style: TextStyle(
-                  fontSize: 18,
+                Container(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Peso",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        "${valorPeso.toStringAsFixed(1)} kg",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                      Slider(
+                        min: 0,
+                        max: 150,
+                        activeColor: Color(0xff0046A6),
+                        inactiveColor: Color(0xff87A5CF),
+                        value: valorPeso,
+                        divisions: 1500,
+                        onChanged: (double val) {
+                          valorPeso = val;
+                          valorCalculado = "";
+                          msg1 = "";
+                          msg2 = "";
+                          url = "";
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              Container(
-                height: 180,
-                decoration:url.isNotEmpty
-                    ? BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(url),
-                          fit: BoxFit.fitHeight),
-                          
-                      )
-                    : null,
-              ),
-            ],
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      valorCalculado = (valorPeso / pow(valorAltura / 100, 2))
+                          .toStringAsFixed(2);
+                      for (int i = 0; i < resultados.length; i++)
+                        if (double.parse(valorCalculado) > resultados[i].valMin &&
+                            double.parse(valorCalculado) <=
+                                resultados[i].valMax) {
+                          msg1 = resultados[i].Mensaje1;
+                          msg2 = resultados[i].Mensaje2;
+                          url =  resultados[i].imageUrl;
+                          break;
+                        }
+                      setState(() {});
+                    },
+                    child: Text(
+                      "Calculate",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
+                    ),
+                    style: style,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(valorCalculado, style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold)),
+                Text(msg1, style: TextStyle(
+                  fontSize: 25,
+                  color: Color(0xffB21016))),
+                Text(
+                  msg2,
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Container(
+                  height: 180,
+                  decoration:url.isNotEmpty
+                      ? BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(url),
+                            fit: BoxFit.fitHeight),
+                            
+                        )
+                      : null,
+                ),
+              ],
+            ),
           ),
         ),
       ),
