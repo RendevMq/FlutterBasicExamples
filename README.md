@@ -16,7 +16,7 @@ samples, guidance on mobile development, and a full API reference.
 | Example gifs          | Example gifs          |
 |:---------------------:|:---------------------:|
 | w3_e2diceapp          | w4_e1contadores       |
-| <img src="https://visme.co/blog/wp-content/uploads/2020/02/header-1200.gif" width="200px"> | <img src="https://i.gifer.com/3OiOA.gif" width="200px"> |
+| <img src="https://raw.githubusercontent.com/RendevMq/MyGIFS/main/w3_e2diceapp.gif?token=GHSAT0AAAAAACLHWJYCRZ3T3M3ABZMY32ACZOQO63Q" width="200px"> | <img src="https://i.gifer.com/3OiOA.gif" width="200px"> |
 | w4_e2playimages       | w4_e3favoritesports   |
 | <img src="https://i.gifer.com/3OiOB.gif" width="200px"> | <img src="https://i.gifer.com/3OiOC.gif" width="200px"> |
 | w4_e4calculateimc     | w5_e1xylophone        |
