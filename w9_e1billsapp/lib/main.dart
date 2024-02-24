@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:w9_e1billsapp/pages/home_page.dart';
+import 'package:gastosappg7/pages/home_page.dart';
+import 'package:gastosappg7/pages/page.dart';
 
 void main() {
   runApp(

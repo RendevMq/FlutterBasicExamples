@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gastosappg7/db/db_admin.dart';
+import 'package:gastosappg7/models/gasto_model.dart';
+import 'package:gastosappg7/utils/data_general.dart';
+import 'package:gastosappg7/widgets/item_type_widget.dart';
+import 'package:gastosappg7/widgets/texfield_normal_widget.dart';
 import 'package:intl/intl.dart';
-import 'package:w9_e1billsapp/db/db_admin.dart';
-import 'package:w9_e1billsapp/models/gasto_model.dart';
-import 'package:w9_e1billsapp/utils/data_general.dart';
-import 'package:w9_e1billsapp/widgets/item_type_widget.dart';
-import 'package:w9_e1billsapp/widgets/texfield_normal_widget.dart';
 
 class RegisterModal extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _RegisterModalState extends State<RegisterModal> {
             child: child!,
           );
         });
-    print(datepicker);
+    // print(datepicker);
     // if (datepicker != null) {
     //   _dateController.text = datepicker.toString();
     //   setState(() {});
@@ -81,7 +81,7 @@ class _RegisterModalState extends State<RegisterModal> {
             hintText: "Selecciona la fecha",
             isDatePicker: true,
             onTap: () {
-              print("este es el datepicjer");
+              // print("este es el datepicjer");
               showDateTimePicker();
             },
             controller: _dateController,
@@ -100,8 +100,8 @@ class _RegisterModalState extends State<RegisterModal> {
                           isSelected: e["name"] == typeSelected,
                           onTap: () {
                             typeSelected = e["name"];
-                            print("Hola");
-                            print(typeSelected);
+                            // print("Hola");
+                            // print(typeSelected);
                             setState(() {});
                           },
                         ))
@@ -122,33 +122,34 @@ class _RegisterModalState extends State<RegisterModal> {
               ),
               onPressed: () {
                 GastoModel gasto = GastoModel(
-                    title: _titleController.text,
-                    price: double.parse(
-                        _priceController.text), //se hacce un casteo
-                    dateTime: "12/12/12",
-                    type: _dateController.text);
-                // DBAdmin().insertarGasto(gasto);
+                  dateTime: _dateController.text,
+                  price: double.parse(_priceController.text),
+                  title: _titleController.text,
+                  type: typeSelected,
+                );
                 DBAdmin().insertarGasto(gasto).then((value) {
                   if (value > 0) {
-                    //inserto correctamente
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Se registro correctamente"),
-                      backgroundColor: Colors.cyan,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)
+                    //insertó correctamente
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.cyan,
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        content: Text("Se registró correctamente"),
                       ),
-                    ));
+                    );
                     Navigator.pop(context);
                   } else {
-                    //poner algun mensaje para indicar que no se inserto correctamente
+                    //poner algun mensaje para indicar que no se insertó correctamente
                   }
                 }).catchError((error) {
                   print(error);
                 });
               },
               child: Text(
-                "Agregar Boton",
+                "Agregar",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

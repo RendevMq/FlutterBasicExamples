@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:gastosappg7/db/db_admin.dart';
+import 'package:gastosappg7/modals/register_form_modal.dart';
+import 'package:gastosappg7/models/gasto_model.dart';
+import 'package:gastosappg7/utils/data_general.dart';
+import 'package:gastosappg7/widgets/item_gasto_widget.dart';
+import 'package:gastosappg7/widgets/item_type_widget.dart';
+import 'package:gastosappg7/widgets/texfield_normal_widget.dart';
 import 'package:intl/intl.dart';
-import 'package:w9_e1billsapp/db/db_admin.dart';
-import 'package:w9_e1billsapp/modals/register_form_modal.dart';
-import 'package:w9_e1billsapp/widgets/item_gasto_widget.dart';
-import 'package:w9_e1billsapp/widgets/texfield_normal_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-List<Map> gastosList = [];
-
-Future<void> getDataGeneral() async {
-  gastosList = await DBAdmin().obtenerGastos();
-  setState(() {});
-}
-
-@override
-void initState() {
-  super.initState();
-  // Llama a la función getDataGeneral() al iniciar el widget
-  getDataGeneral();
-}
-
 class _HomePageState extends State<HomePage> {
   TextEditingController _searchController = TextEditingController();
+  List<GastoModel> gastosList = [];
+  
+  String searchText = "";
+
+  void onSearchTextChanged(String text) {
+    print("***************************************"); //verifico si entra aesta funcion
+    setState(() {
+      searchText = text;
+    });
+  }
 
   showModalRegister() {
     showModalBottomSheet(
@@ -41,11 +39,29 @@ class _HomePageState extends State<HomePage> {
           child: RegisterModal(),
         );
       },
-    );
+    ).then((value) {
+      print("-----------------------------");
+      // print("HOLA");
+      getDataGeneral();
+      setState(() {});
+    });
+  }
+
+  Future<void> getDataGeneral() async {
+    gastosList = await DBAdmin().obtenerGastos();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getDataGeneral();
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // print(gastosList);
     // final DateTime now = DateTime.now();
     // print(now);
     // final DateFormat formatter = DateFormat('dd-MM-yyyy');
@@ -60,20 +76,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    //PRIMER FORMA , creando dbAdmin.. de esta forma no es ccorrecto ya que deberiamos instanciarlo siempre que lo necesitemos.
-
-                    // DBAdmin dbAdmin = DBAdmin();
-                    // dbAdmin.initDatabase();
-                    // print(dbAdmin.checkDatabase());
-                    print("iniciando db.....");
-
-                    // dbAdmin.obtenerGastos();
-                    // dbAdmin.insertarGasto();
-
-                    //SEGUNDA FORMA , sin instanciar VARIAS VECES
-                    DBAdmin().obtenerGastos();
-                    // DBAdmin().insertarGasto();
-
+                    // DBAdmin().obtenerGastos();
                     showModalRegister();
                   },
                   child: Container(
@@ -141,12 +144,37 @@ class _HomePageState extends State<HomePage> {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               child: TextFieldNormalWidget(
-                                hintText: "Buscar por título",
-                                controller: _searchController,
-                              ),
+                                  onTextChanged: onSearchTextChanged,
+                                  hintText: "Buscar por título",
+                                  controller: _searchController),
                             ),
-                            ItemGastoWidget(),
-                            ItemGastoWidget(),
+                            ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: gastosList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                if (_searchController.text.isNotEmpty &&
+                                    !gastosList[index]
+                                        .title
+                                        .toLowerCase()
+                                        .contains(
+                                          _searchController.text.toLowerCase(),
+                                        )) {
+                                  return Container();
+                                }
+                                return GestureDetector(
+                                  onTap: () {
+                                    // DBAdmin().delGasto(gastosList[index].id);
+                                    // DBAdmin().updGasto(gastosList[index].id);
+                                    // getDataGeneral();
+                                    // setState(() {});
+                                  },
+                                  child: ItemGastoWidget(
+                                    data: gastosList[index],
+                                  ),
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:gastosappg7/models/gasto_model.dart';
 
-class ItemGastoWidget extends StatelessWidget {
-  const ItemGastoWidget({super.key});
+class ItemGastoWidget extends StatefulWidget {
+  GastoModel data;
+  ItemGastoWidget({
+    required this.data,
+  });
 
+  @override
+  State<ItemGastoWidget> createState() => _ItemGastoWidgetState();
+}
+
+class _ItemGastoWidgetState extends State<ItemGastoWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,14 +22,14 @@ class ItemGastoWidget extends StatelessWidget {
       ),
       child: ListTile(
         leading: Image.asset(
-          "assets/icons/alimentos.png",
+          "assets/icons/${widget.data.type.contains("seguros") ? "bancos" : widget.data.type.toLowerCase()}.png",
           width: 50,
           height: 50,
         ),
         title: MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
           child: Text(
-            "Compras en el super",
+            widget.data.title,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -28,14 +37,14 @@ class ItemGastoWidget extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          "09/02/2024 22:21",
+          widget.data.dateTime,
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
           ),
         ),
         trailing: Text(
-          "S/ 402.00",
+          "S/ ${widget.data.price}",
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w700,

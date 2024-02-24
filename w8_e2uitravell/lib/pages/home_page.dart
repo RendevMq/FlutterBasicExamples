@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:w8_e2uitravell/constants.dart';
+import 'package:w8_e2uitravell/widgets/item_history_widget.dart';
+import 'package:w8_e2uitravell/widgets/item_slider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -121,72 +123,75 @@ class HomePage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Parking New Year",
-                          style: GoogleFonts.montserrat(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: kColorPrimary)),
-                      Row(
-                        children: [
-                          Text("View More",
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: kColorTertiary)),
-                          const SizedBox(
-                            width: 6,
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: kColorTertiary,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: 160,
-                    color: Colors.redAccent,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: 120,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('assets/images/maps.png'),
-                                fit: BoxFit.fitWidth),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                          child: Column(
-                            children: [
-                              Text(
-                                "Blok C Benjaminsssssssssssss",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              const SizedBox(
-                                height: 6,
-                              ),
-                              Text(
-                                "Av. Lima 1111 Mz B UUUUUU",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              )
-                            ],
-                          ),
+                        Text("Parking New Year",
+                            style: GoogleFonts.montserrat(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: kColorPrimary)),
+                        Row(
+                          children: [
+                            Text("View More",
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: kColorTertiary)),
+                            const SizedBox(
+                              width: 6,
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: kColorTertiary,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ItemSliderWidget(),
+                          ItemSliderWidget(),
+                          ItemSliderWidget(),
+                          ItemSliderWidget(),
+                          ItemSliderWidget(),
+                          ItemSliderWidget(),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "History Parking",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: kColorPrimary),
+                        ),
+                      ],
+                    ),
+                    ItemHistoryWidget(),
+                    ItemHistoryWidget(),
+                    ItemHistoryWidget(),
+                    ItemHistoryWidget(),
+                    ItemHistoryWidget(),
+                    ItemHistoryWidget(),
+                  ],
+                ),
               ),
             ),
           ],

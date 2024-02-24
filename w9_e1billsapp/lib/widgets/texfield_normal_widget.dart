@@ -1,32 +1,46 @@
 import 'package:flutter/material.dart';
 
-class TextFieldNormalWidget extends StatelessWidget {
+class TextFieldNormalWidget extends StatefulWidget {
   String hintText;
   bool isNumber = false;
   bool isDatePicker = false;
   VoidCallback? onTap;
   TextEditingController controller;
+  final Function(String)? onTextChanged;
 
-  TextFieldNormalWidget({
-    required this.hintText,
-    this.isNumber = false,
-    this.isDatePicker = false,
-    this.onTap,
-    required this.controller,
-  });
+  TextFieldNormalWidget(
+      {required this.hintText,
+      this.isNumber = false,
+      this.isDatePicker = false,
+      this.onTap,
+      required this.controller,
+      this.onTextChanged});
 
   @override
+  State<TextFieldNormalWidget> createState() => _TextFieldNormalWidgetState();
+}
+
+class _TextFieldNormalWidgetState extends State<TextFieldNormalWidget> {
+  @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextField(
-        controller: controller,
+        controller: widget.controller,
         // enabled: true,
-        readOnly: isDatePicker,
-        onTap: onTap,
-        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+        readOnly: widget.isDatePicker,
+        onTap: widget.onTap,
+        keyboardType:
+            widget.isNumber ? TextInputType.number : TextInputType.text,
+        onChanged: (text) {
+          widget.onTextChanged?.call(text); //si widget.onTextChanged es nulo la llamada(.call) no la realiza, como si esta linea no estuviese
+
+          // widget.onTextChanged!(text);  //Si   es null en el momento de la llamada, se generará una excepción NoSuchMethodError.
+          print(text);
+        },
         decoration: InputDecoration(
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: 14,
             color: Colors.black.withOpacity(0.40),

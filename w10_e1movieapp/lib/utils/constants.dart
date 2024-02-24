@@ -1,0 +1,3 @@
+const String pathProduccion = "https://api.themoviedb.org/3";
+const String apiKey =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MWY1MzY3YmFmYTViYzU0YTU3NjFiNWJmYjJhNzgxZCIsInN1YiI6IjY1MDg2Y2M1MTA5ZGVjMDBhZWIwNzQxZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MMLBav0DAmaSOzOkY78Vw4wikpZTTvb6Zr0C9t9DPQU";

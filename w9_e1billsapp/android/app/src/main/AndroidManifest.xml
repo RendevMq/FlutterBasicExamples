@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="w9_e1billsapp"
+        android:label="gastosappg7"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
