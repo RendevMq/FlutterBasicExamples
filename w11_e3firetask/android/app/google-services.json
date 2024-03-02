@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "623221631684",
+    "project_id": "fluttervideos1",
+    "storage_bucket": "fluttervideos1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623221631684:android:027e4e66e6a44eeea17791",
+        "android_client_info": {
+          "package_name": "pe.codeme.w11_e3firetask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqE-_1vZhm8V0uBDzsP7tuWTT8IgdyNeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

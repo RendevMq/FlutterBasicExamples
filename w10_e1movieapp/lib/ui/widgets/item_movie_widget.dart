@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:w10_e1movieapp/models/movie_model.dart';
 import 'package:w10_e1movieapp/pages/detail_page.dart';
 import 'package:w10_e1movieapp/ui/general/colors.dart';
+import 'package:w10_e1movieapp/ui/widgets/line_widget.dart';
 
 class ItemMovieWidget extends StatelessWidget {
   // const ItemMovieWidget({super.key});
@@ -19,7 +20,7 @@ class ItemMovieWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DetailPage()),
+          MaterialPageRoute(builder: (context) => DetailPage(movieId: movieModel.id,)),
         );
       },
       child: Container(
@@ -66,13 +67,7 @@ class ItemMovieWidget extends StatelessWidget {
                     const SizedBox(
                       height: 6,
                     ),
-                    Container(
-                      width: 100,
-                      height: 3.2,
-                      decoration: BoxDecoration(
-                          color: kBransSecondaryColor,
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
+                    LineWidget(width: 100),
                     const SizedBox(
                       height: 6,
                     ),

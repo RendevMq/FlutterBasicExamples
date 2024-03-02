@@ -16,14 +16,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController _searchController = TextEditingController();
   List<GastoModel> gastosList = [];
-  
-  String searchText = "";
+  //String searchText = "";
 
   void onSearchTextChanged(String text) {
     print("***************************************"); //verifico si entra aesta funcion
-    setState(() {
-      searchText = text;
-    });
+    setState(() {});
   }
 
   showModalRegister() {

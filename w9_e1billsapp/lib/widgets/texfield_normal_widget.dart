@@ -34,6 +34,8 @@ class _TextFieldNormalWidgetState extends State<TextFieldNormalWidget> {
         keyboardType:
             widget.isNumber ? TextInputType.number : TextInputType.text,
         onChanged: (text) {
+          // setState(() {});
+
           widget.onTextChanged?.call(text); //si widget.onTextChanged es nulo la llamada(.call) no la realiza, como si esta linea no estuviese
 
           // widget.onTextChanged!(text);  //Si   es null en el momento de la llamada, se generará una excepción NoSuchMethodError.

@@ -12,12 +12,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "MovieApp",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme()
-      ),
-      home: HomePage()
-    );
+        title: "MovieApp",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          textTheme: GoogleFonts.poppinsTextTheme().apply(
+            bodyColor: Colors.white, // Establecer el color del texto a blanco
+          ),
+          appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+            ),
+            iconTheme: IconThemeData(color: Colors.white)
+          ),
+        ),
+        home: HomePage());
   }
 }

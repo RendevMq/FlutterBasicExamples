@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:w10_e1movieapp/models/movie_detail_model.dart';
 import 'dart:io';
 
 import 'package:w10_e1movieapp/models/movie_model.dart';
@@ -30,6 +31,25 @@ class ApiService {
           .map<MovieModel>((e) => MovieModel.fromJson(e))
           .toList();
     }
-    return movies; //retornamos movies,  
+    return movies; //retornamos movies,
+  }
+
+  Future<MovieDetailMovie?> getMovie(int movieId) async {
+    String _url = "${pathProduccion}/movie/$movieId?language=en-US";
+    Uri _uri = Uri.parse(_url);
+
+    http.Response _response = await http.get(
+      _uri,
+      // Send authorization headers to the backend.
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ${apiKey}',
+      },
+    );
+    if (_response.statusCode == 200) {
+      Map<String, dynamic> movieMap = json.decode(_response.body);
+      MovieDetailMovie movieDetailMovie = MovieDetailMovie.fromJson(movieMap);
+      return movieDetailMovie;
+    }
+    return null;
   }
 }
